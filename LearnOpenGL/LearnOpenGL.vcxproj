@@ -113,6 +113,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;User32.lib;Opengl32.lib;Gdi32.lib;Shell32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)LearnOpenGL\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)LearnOpenGL\Dependencies\GLFW\lib-vc2022;$(SolutionDir)LearnOpenGL\Dependencies\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,6 +136,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;User32.lib;Opengl32.lib;Gdi32.lib;Shell32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)LearnOpenGL\Dependencies\GLEW\lib\Release\x64;$(SolutionDir)LearnOpenGL\Dependencies\GLFW\lib-vc2022;$(SolutionDir)LearnOpenGL\Dependencies\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -232,25 +236,35 @@
     <ClInclude Include="OpenGL\include\glad\glad.h" />
     <ClInclude Include="OpenGL\include\KHR\khrplatform.h" />
     <ClInclude Include="OpenGL\src\Application.h" />
+    <ClInclude Include="OpenGL\src\AudioComponent.h" />
     <ClInclude Include="OpenGL\src\Camera.h" />
+    <ClInclude Include="OpenGL\src\CollisionComponent.h" />
     <ClInclude Include="OpenGL\src\Color.h" />
     <ClInclude Include="OpenGL\src\Component.h" />
     <ClInclude Include="OpenGL\src\config.h" />
     <ClInclude Include="OpenGL\src\Console.h" />
     <ClInclude Include="OpenGL\src\Controll.h" />
     <ClInclude Include="OpenGL\src\Debug.h" />
+    <ClInclude Include="OpenGL\src\Entity.h" />
+    <ClInclude Include="OpenGL\src\EntityManager.h" />
+    <ClInclude Include="OpenGL\src\FrameBuffer.h" />
     <ClInclude Include="OpenGL\src\Gui.h" />
     <ClInclude Include="OpenGL\src\IndexBuffer.h" />
-    <ClInclude Include="OpenGL\src\Init.hpp" />
+    <ClInclude Include="OpenGL\src\Init.h" />
     <ClInclude Include="OpenGL\src\Math.h" />
     <ClInclude Include="OpenGL\src\Mesh.h" />
     <ClInclude Include="OpenGL\src\Model.h" />
+    <ClInclude Include="OpenGL\src\MovementComponent.h" />
     <ClInclude Include="OpenGL\src\Octree.h" />
     <ClInclude Include="OpenGL\src\pch.h" />
+    <ClInclude Include="OpenGL\src\RenderBuffer.h" />
     <ClInclude Include="OpenGL\src\Renderer.h" />
+    <ClInclude Include="OpenGL\src\RenderScreenQuad.h" />
     <ClInclude Include="OpenGL\src\Shader.h" />
+    <ClInclude Include="OpenGL\src\SkyBox.h" />
     <ClInclude Include="OpenGL\src\Texture.h" />
     <ClInclude Include="OpenGL\src\Timer.h" />
+    <ClInclude Include="OpenGL\src\TransformComponent.h" />
     <ClInclude Include="OpenGL\src\vendor\glm\common.hpp" />
     <ClInclude Include="OpenGL\src\vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="OpenGL\src\vendor\glm\detail\compute_vector_decl.hpp" />
@@ -567,12 +581,11 @@
     <None Include="Dependencies\assimp\include\assimp\vector3.inl" />
     <None Include="OpenGL\res\shaders\backpack\object.shader" />
     <None Include="OpenGL\res\shaders\Basic.shader" />
-    <None Include="OpenGL\res\shaders\Differ.shader" />
     <None Include="OpenGL\res\shaders\Light.shader" />
     <None Include="OpenGL\res\shaders\Mix.shader" />
     <None Include="OpenGL\res\shaders\Object.shader" />
-    <None Include="OpenGL\res\shaders\Object_m.shader" />
-    <None Include="OpenGL\res\shaders\Object_m2.glsl" />
+    <None Include="OpenGL\res\shaders\screenShader.shader" />
+    <None Include="OpenGL\res\shaders\skyBox.shader" />
     <None Include="OpenGL\src\vendor\glm\detail\func_common.inl" />
     <None Include="OpenGL\src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="OpenGL\src\vendor\glm\detail\func_exponential.inl" />
@@ -713,24 +726,34 @@
     <None Include="OpenGL\src\vendor\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OpenGL\src\Application.cpp" />
+    <ClCompile Include="OpenGL\src\AudioComponent.cpp" />
     <ClCompile Include="OpenGL\src\Camera.cpp" />
+    <ClCompile Include="OpenGL\src\CollisionComponent.cpp" />
     <ClCompile Include="OpenGL\src\Color.cpp" />
     <ClCompile Include="OpenGL\src\Component.cpp" />
     <ClCompile Include="OpenGL\src\Console.cpp" />
     <ClCompile Include="OpenGL\src\Controll.cpp" />
     <ClCompile Include="OpenGL\src\Debug.cpp" />
-    <ClCompile Include="OpenGL\src\glad.c" />
+    <ClCompile Include="OpenGL\src\Entity.cpp" />
+    <ClCompile Include="OpenGL\src\EntityManager.cpp" />
+    <ClCompile Include="OpenGL\src\FrameBuffer.cpp" />
     <ClCompile Include="OpenGL\src\Gui.cpp" />
     <ClCompile Include="OpenGL\src\IndexBuffer.cpp" />
+    <ClCompile Include="OpenGL\src\Init.cpp" />
     <ClCompile Include="OpenGL\src\main.cpp" />
     <ClCompile Include="OpenGL\src\Math.cpp" />
     <ClCompile Include="OpenGL\src\Mesh.cpp" />
     <ClCompile Include="OpenGL\src\Model.cpp" />
+    <ClCompile Include="OpenGL\src\MovementComponent.cpp" />
     <ClCompile Include="OpenGL\src\Octree.cpp" />
+    <ClCompile Include="OpenGL\src\RenderBuffer.cpp" />
     <ClCompile Include="OpenGL\src\Renderer.cpp" />
     <ClCompile Include="OpenGL\src\Shader.cpp" />
+    <ClCompile Include="OpenGL\src\SkyBox.cpp" />
     <ClCompile Include="OpenGL\src\Texture.cpp" />
     <ClCompile Include="OpenGL\src\Timer.cpp" />
+    <ClCompile Include="OpenGL\src\TransformComponent.cpp" />
     <ClCompile Include="OpenGL\src\vendor\glm\detail\glm.cpp" />
     <ClCompile Include="OpenGL\src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="OpenGL\src\vendor\imgui\imgui_demo.cpp" />

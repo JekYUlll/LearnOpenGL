@@ -2,19 +2,7 @@
 
 Application::Application(int width, int height, const char* title)
 {
-    if (!glfwInit()) {
-        // Initialization failed
-        exit(EXIT_FAILURE);
-    }
-
-    window = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (!window) {
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    this->window = init::Init("JekYUlll", width, height, 3, 3, true);
 }
 
 Application::~Application()
@@ -25,12 +13,21 @@ Application::~Application()
 
 void Application::Run()
 {
+    while (!glfwWindowShouldClose(window)) {
+        timer::SyncTime();
+
+        Update(timer::deltaTime);
+        Render();
+    }
 }
 
 void Application::Update(float deltaTime)
 {
+    entityManager.UpdateAllEntities(deltaTime);
+    // 如果有其他不属于 EntityManager 范畴的更新逻辑，也可以放在这里
 }
 
 void Application::Render()
 {
+
 }

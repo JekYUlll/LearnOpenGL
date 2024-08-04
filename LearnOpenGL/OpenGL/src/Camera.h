@@ -7,8 +7,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-extern enum Camera_Movement;
+#include "Component.h"
 
 extern float cameraMove;
 extern float cameraSpeed; // 相机移速
@@ -36,8 +35,32 @@ extern const float SPEED;
 extern const float SENSITIVTY;
 extern const float ZOOM;
 
-class Camera
+class Camera : public Component
 {
+public:
+    Camera(const glm::vec3& position, const glm::vec3& lookAt, const glm::vec3& up);
+
+    void Update(float deltaTime) override;
+
+    void SetPosition(const glm::vec3& position);
+    void SetRotation(const glm::quat& rotation);
+    void Rotate(const glm::vec3& eulerAngles); // 使用欧拉角进行旋转
+    void Rotate(const glm::quat& rotation); // 直接使用四元数进行旋转
+    void Translate(const glm::vec3& translation); // 移动摄像机
+
+    glm::mat4 GetViewMatrix() const;
+
+    const glm::vec3& GetPosition() const { return _position; }
+    const glm::quat& GetRotation() const { return _rotation; }
+
+private:
+    glm::vec3 _position;
+    glm::quat _rotation; // 使用四元数表示旋转
+    glm::vec3 _up;
+    glm::vec3 _front;
+    glm::vec3 _right;
+
+    void UpdateCameraVectors();
 
 };
 

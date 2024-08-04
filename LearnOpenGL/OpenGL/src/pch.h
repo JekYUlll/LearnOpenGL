@@ -25,20 +25,25 @@
 #include "config.h"
 #include "Gui.h"
 #include "Debug.h"
-#include "Init.hpp"
+#include "Init.h"
 #include "Renderer.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
-#include "VertexBufferLayout.h"
 #include "IndexBuffer.h"
+#include "VertexBufferLayout.h"
+#include "FrameBuffer.h"
 #include "Shader.h"
 #include "Model.h"
 #include "Camera.h"
+#include "RenderScreenQuad.h"
+
 #include "Window.h"
 #include "Controll.h"
 #include "Timer.h"
 #include "Color.h"
 #include "Math.h"
+
+#include "SkyBox.h"
 
 
 #endif // !PCH_H

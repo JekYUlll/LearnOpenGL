@@ -16,7 +16,9 @@
 #define VERSION_2 3
 #define USE_CORE true
 
-#define VERTICAL_SYN // ´¹Ö±Í¬²½
+#define ICON_PATH "res/icons/opengl.png"
+#define FONT_PATH "res/fonts/ProFontWindowsNerdFontPropo-Regular.ttf"
+#define NO_PICTURE "res/textures/NERF"
 
 
 

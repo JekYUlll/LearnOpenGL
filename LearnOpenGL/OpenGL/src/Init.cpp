@@ -1,30 +1,18 @@
-#ifndef INIT_HPP
-#define INIT_HPP
-
-#include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "stb_image/stb_image.h"
-
-#include "Console.h"
-#include "Debug.h"
-#include "Controll.h"
-#include "config.h"
-#include "Gui.h"
-#include "Renderer.h"
+ï»¿#include "Init.h"
 
 namespace init {
-    // ÉèÖÃ°æ±¾
+    static bool useVerticalSyn = true; //å‚ç›´åŒæ­¥
+    // è®¾ç½®ç‰ˆæœ¬
     static void SetOpenGLVersion(const unsigned int& versionNum_1, const unsigned int& versionNum_2, const bool& isCore)
     {
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, versionNum_1); // Ö÷°æ±¾
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, versionNum_2); // ´Î°æ±¾
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, versionNum_1); // ä¸»ç‰ˆæœ¬
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, versionNum_2); // æ¬¡ç‰ˆæœ¬
         if (isCore)
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // ÅäÖÃÉèÎªºËĞÄÅäÖÃÎÄ¼ş(core)
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // é…ç½®è®¾ä¸ºæ ¸å¿ƒé…ç½®æ–‡ä»¶(core)
         else
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE); // ¼æÈİÅäÖÃÎÄ¼ş(compat)
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE); // å…¼å®¹é…ç½®æ–‡ä»¶(compat)
     }
-    // ´òÓ¡³õÊ¼ĞÅÏ¢
+    // æ‰“å°åˆå§‹ä¿¡æ¯
     static void PrintInitInfo(const unsigned int& width, const unsigned int& height) {
 #ifdef _DEBUG
         std::cout << "[Debug mode]" << std::endl;
@@ -39,24 +27,18 @@ namespace init {
             std::cout << "[Render Mode: CUBE]" << std::endl;
         }
         SET_CONSOLE_TEXT_COLOR(FOREGROUND_GREEN);
-        std::cout << "  ___                    ____ _    \n"
-                  << " / _ \\ _ __   ___ _ __  / ___| |   \n"
-                  << "| | | | '_ \\ / _ \\ '_ \\| |  _| |   \n"
-                  << "| |_| | |_) |  __/ | | | |_| | |   \n"
-                  << " \\___/| .__/ \\___|_| |_|\\____|_|   \n"
-                  << "      |_|                          \n" << std::endl; // pyfiglet
         std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
         std::cout << "ImGui version: " << IMGUI_VERSION << std::endl;
-        // ´òÓ¡·Ö±æÂÊ
+        // æ‰“å°åˆ†è¾¨ç‡
         std::cout << "Resolution: " << width << " * " << height << std::endl;
-        int nrAttributes = 0; // ¶¥µãÊôĞÔÉÏÏŞ
+        int nrAttributes = 0; // é¡¶ç‚¹å±æ€§ä¸Šé™
         glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
         std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
         SET_CONSOLE_TEXT_COLOR(FOREGROUND_RED);
-        std::cout << "  <======>\n"  << std::endl;
+        std::cout << "  <======>\n" << std::endl;
         SET_CONSOLE_TEXT_COLOR(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     }
-    // ÉèÖÃ´°¿ÚÍ¼±ê
+    // è®¾ç½®çª—å£å›¾æ ‡
     static void SetWindowIcon(GLFWwindow* window, const std::string& iconPath) {
         int width, height, channels;
         unsigned char* pixels = stbi_load(iconPath.c_str(), &width, &height, &channels, 4);
@@ -73,21 +55,22 @@ namespace init {
         }
     }
     /// <summary>
-    /// ³õÊ¼»¯GLEW£¬GLFW£¬ImGui£¬´´½¨´°¿Ú
+    /// åˆå§‹åŒ–GLEWï¼ŒGLFWï¼ŒImGuiï¼Œåˆ›å»ºçª—å£
     /// </summary>
-    /// <param name="windowName">´°¿Ú±êÌâ</param>
-    /// <param name="width">´°¿Ú¿í¶È</param>
-    /// <param name="height">´°¿Ú¸ß¶È</param>
-    /// <param name="versionNum_1">Ö÷°æ±¾ºÅ</param>
-    /// <param name="versionNum_2">´Î°æ±¾ºÅ</param>
-    /// <param name="isCore">ÊÇ·ñÎªOpenGL core</param>
-    /// <returns>´°¿ÚÖ¸Õë</returns>
+    /// <param name="windowName">çª—å£æ ‡é¢˜</param>
+    /// <param name="width">çª—å£å®½åº¦</param>
+    /// <param name="height">çª—å£é«˜åº¦</param>
+    /// <param name="versionNum_1">ä¸»ç‰ˆæœ¬å·</param>
+    /// <param name="versionNum_2">æ¬¡ç‰ˆæœ¬å·</param>
+    /// <param name="isCore">æ˜¯å¦ä¸ºOpenGL core</param>
+    /// <returns>çª—å£æŒ‡é’ˆ</returns>
     GLFWwindow* Init(const std::string& windowName, const unsigned int& width, const unsigned int& height, const unsigned int& versionNum_1, const unsigned int& versionNum_2, const bool& isCore)
     {
         GLFWwindow* window;
         /* Initialize the library */
         if (!glfwInit()) {
             std::cout << "Failed to init GLFW!" << std::endl;
+            exit(EXIT_FAILURE);
             return nullptr;
         }
         init::SetOpenGLVersion(versionNum_1, versionNum_2, isCore);
@@ -96,18 +79,20 @@ namespace init {
         if (!window) {
             glfwTerminate();
             std::cout << "Failed to create window!" << std::endl;
+            exit(EXIT_FAILURE);
             return nullptr;
         }
-        SetWindowIcon(window, "res/icon/opengl.png"); // ÉèÖÃÍ¼±ê
+        SetWindowIcon(window, ICON_PATH); // è®¾ç½®å›¾æ ‡
         glfwMakeContextCurrent(window); /* Make the window's context current */
-#ifdef VERTICAL_SYN
-        GLCall(glfwSwapInterval(1)); // ÉèÖÃ´¹Ö±Í¬²½
-#endif // VERTICAL_SYN
-        GLCall(glfwSetKeyCallback(window, ctrl::key_callback)); // ÉèÖÃ°´¼ü»Øµ÷
-        GLCall(glfwSetCursorPosCallback(window, ctrl::mouse_callback)); // ÉèÖÃÊó±ê»Øµ÷
-        GLCall(glfwSetScrollCallback(window, ctrl::scroll_callback)); // ×¢²á¹ö¶¯»Øµ÷º¯Êı
-        // GLCall(glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED)); // ¿ª¾ÖÒş²ØÖ¸Õë
-        // ³õÊ¼»¯ GLEW
+
+        if(useVerticalSyn) GLCall(glfwSwapInterval(1)); // è®¾ç½®å‚ç›´åŒæ­¥
+
+        GLCall(glEnable(GL_CULL_FACE)); // å¼€å¯é¢å‰”é™¤  æ²¡ç”Ÿæ•ˆ???
+        GLCall(glfwSetKeyCallback(window, ctrl::key_callback)); // è®¾ç½®æŒ‰é”®å›è°ƒ
+        GLCall(glfwSetCursorPosCallback(window, ctrl::mouse_callback)); // è®¾ç½®é¼ æ ‡å›è°ƒ
+        GLCall(glfwSetScrollCallback(window, ctrl::scroll_callback)); // æ³¨å†Œæ»šåŠ¨å›è°ƒå‡½æ•°
+        // GLCall(glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED)); // å¼€å±€éšè—æŒ‡é’ˆ
+        // åˆå§‹åŒ– GLEW
         if (glewInit() != GLEW_OK) {
             std::cout << "GLEW init Error!" << std::endl;
             return nullptr;
@@ -116,5 +101,3 @@ namespace init {
         return window;
     }
 }
-
-#endif // !INIT_HPP

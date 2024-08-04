@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{8868471a-89c9-4816-8f0c-95f9491673ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{0081438a-5409-46b0-afe8-f2a1577323b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\assimp\include\assimp\Compiler\poppack1.h">
@@ -1197,13 +1203,7 @@
     <ClInclude Include="OpenGL\src\Application.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\src\Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OpenGL\src\Color.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\src\Component.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="OpenGL\src\config.h">
@@ -1224,7 +1224,7 @@
     <ClInclude Include="OpenGL\src\IndexBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\src\Init.hpp">
+    <ClInclude Include="OpenGL\src\Init.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="OpenGL\src\Math.h">
@@ -1267,6 +1267,42 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="OpenGL\src\Window.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\Entity.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\MovementComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\CollisionComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\AudioComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\TransformComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\FrameBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\RenderBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\RenderScreenQuad.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\Camera.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\SkyBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\src\EntityManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1709,14 +1745,13 @@
     <None Include="OpenGL\src\vendor\glm\gtx\wrap.inl">
       <Filter>头文件</Filter>
     </None>
-    <None Include="OpenGL\res\shaders\Object_m2.glsl" />
     <None Include="OpenGL\res\shaders\Basic.shader" />
-    <None Include="OpenGL\res\shaders\Differ.shader" />
     <None Include="OpenGL\res\shaders\Light.shader" />
     <None Include="OpenGL\res\shaders\Mix.shader" />
     <None Include="OpenGL\res\shaders\Object.shader" />
-    <None Include="OpenGL\res\shaders\Object_m.shader" />
     <None Include="OpenGL\res\shaders\backpack\object.shader" />
+    <None Include="OpenGL\res\shaders\screenShader.shader" />
+    <None Include="OpenGL\res\shaders\skyBox.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OpenGL\src\vendor\glm\detail\glm.cpp">
@@ -1746,13 +1781,7 @@
     <ClCompile Include="OpenGL\src\vendor\stb_image\stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL\src\Camera.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="OpenGL\src\Color.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\src\Component.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenGL\src\Console.cpp">
@@ -1762,9 +1791,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenGL\src\Debug.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenGL\src\Gui.cpp">
@@ -1813,6 +1839,45 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenGL\src\Window.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Init.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Entity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\MovementComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\CollisionComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\AudioComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\TransformComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\FrameBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\RenderBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Camera.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\SkyBox.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\EntityManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

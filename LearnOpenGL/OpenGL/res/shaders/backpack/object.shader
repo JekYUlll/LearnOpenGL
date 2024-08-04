@@ -36,8 +36,7 @@ uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_normal1;
 uniform sampler2D texture_specular1;
 
-uniform sampler2D test_texture;
-
+uniform sampler2D screenTexture;
 
 void main()
 {   

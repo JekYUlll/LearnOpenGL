@@ -14,7 +14,7 @@
 #include "config.h"
 #include "Gui.h"
 #include "Debug.h"
-#include "Init.hpp"
+#include "Init.h"
 #include "Renderer.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
@@ -26,6 +26,8 @@
 #include "Model.h"
 #include "Camera.h"
 #include "Component.h"
+#include "EntityManager.h" 
+#include "Timer.h"
 
 class Application {
 public:
@@ -42,9 +44,10 @@ public:
     }
 
 private:
-    void Update(float deltaTime);
+    void Update(float deltaTime); // Update 方法负责调用 Application 所有组件的 Update 方法
     void Render();
 
     GLFWwindow* window;
     std::vector<std::unique_ptr<Component>> components;
+    EntityManager entityManager;
 };
