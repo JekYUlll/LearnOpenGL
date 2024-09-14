@@ -11,7 +11,7 @@
 #include "Debug.h"
 #include "Controll.h"
 
-class Gui {
+class Gui final {
 private:
     ImGuiIO* _io;
     float _fontScale;

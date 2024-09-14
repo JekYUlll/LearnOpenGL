@@ -10,6 +10,9 @@
 
 extern const unsigned int WIDTH, HEIGHT;
 
+// 垂直翻转纹理
+static void FlipImageVertically(unsigned char* data, int width, int height, int channels);
+
 // 自定义的枚举类，用于简要判断texture类型。进一步判断使用Assimp库的aiTextureType
 static enum class TextureType
 {

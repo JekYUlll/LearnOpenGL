@@ -24,8 +24,8 @@ int main(int argc, char const* argv[])
     {
         Camera camera(cameraPos, cameraTarget, cameraUp);
 
-        std::shared_ptr<Shader> shader = std::make_shared<Shader>("res/shaders/backpack/object.shader");
-        std::shared_ptr<Shader> skybox_shader = std::make_shared<Shader>("res/shaders/skyBox.shader");
+        std::unique_ptr<Shader> shader = std::make_unique<Shader>("res/shaders/backpack/object.shader");
+        std::unique_ptr<Shader> skybox_shader = std::make_unique<Shader>("res/shaders/skyBox.shader");
         Model Model_backpack("res/models/backpack/backpack.obj");
 
         Skybox skybox("res/textures/skybox");
@@ -57,17 +57,20 @@ int main(int argc, char const* argv[])
             glBindTexture(GL_TEXTURE_CUBE_MAP, skybox._texture->_id);
 
             glDepthMask(GL_FALSE);
+            glDepthFunc(GL_LEQUAL);
             skybox_shader->Use();
             skybox_shader->SetUniform<glm::mat4>("projection", projection);
+            view = glm::mat4(glm::mat3(view)); // 对于天空盒，移除平移
             skybox_shader->SetUniform<glm::mat4>("view", view);
             skybox_shader->SetUniform<glm::mat4>("model", skybox_model);
             skybox_shader->SetUniform<int>("skybox", 0);
             skybox.Draw(*skybox_shader, camera);
             skybox_shader->UnUse();
+            glDepthFunc(GL_LESS);
             glDepthMask(GL_TRUE);
 
             shader->Use();
-
+            view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
             shader->SetUniform<glm::mat4>("projection", projection);
             shader->SetUniform<glm::mat4>("view", view);
             shader->SetUniform<glm::mat4>("model", model);

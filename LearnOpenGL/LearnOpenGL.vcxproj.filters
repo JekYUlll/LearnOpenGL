@@ -1305,6 +1305,9 @@
     <ClInclude Include="OpenGL\src\EntityManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OpenGL\src\Serialize.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Dependencies\assimp\include\assimp\color4.inl">
@@ -1878,6 +1881,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="OpenGL\src\EntityManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\src\Serialize.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

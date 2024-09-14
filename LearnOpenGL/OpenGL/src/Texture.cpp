@@ -2,6 +2,21 @@
 //#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"
 
+static void FlipImageVertically(unsigned char* data, int width, int height, int channels)
+{
+	int stride = width * channels;
+	unsigned char* row = new unsigned char[stride];
+	for (int y = 0; y < height / 2; y++)
+	{
+		unsigned char* row1 = data + y * stride;
+		unsigned char* row2 = data + (height - y - 1) * stride;
+		memcpy(row, row1, stride);
+		memcpy(row1, row2, stride);
+		memcpy(row2, row, stride);
+	}
+	delete[] row;
+}
+
 Texture::Texture(const std::string& filePath, TextureType type)
 	: _id(0), _filePath(filePath), _localBuffer(nullptr), _width(0), _height(0), _BPP(0), type(aiTextureType::aiTextureType_NONE)
 {
@@ -11,7 +26,9 @@ Texture::Texture(const std::string& filePath, TextureType type)
 		return;
 	}
 	file.close();
+
 	stbi_set_flip_vertically_on_load(1); // OpenGL (0,0) 在左下角，所以需要翻转
+
 	_localBuffer = stbi_load(_filePath.c_str(), &_width, &_height, &_BPP, 0); // 当 req_comp 设置为 0 时，表示 STB Image 库应该自动决定通道数
 	
 	if (_localBuffer) {
@@ -96,6 +113,7 @@ Texture::Texture(unsigned int width, unsigned int height, GLenum format)
 Texture::~Texture()
 {
 	GLCall(glDeleteTextures(1, &_id));
+	//stbi_set_flip_vertically_on_load(0);
 }
 
 void Texture::Bind(unsigned int slot) const
@@ -117,7 +135,7 @@ void Texture::LoadCubemap(const std::vector<std::string>& faces)
 
 	int width, height, nrChannels;
 	for (unsigned int i = 0; i < faces.size(); i++) {
-		stbi_set_flip_vertically_on_load(1);
+		// stbi_set_flip_vertically_on_load(1);
 		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
 		if (data) {
 			std::cout << "Cubemap texture succeed to load at path: " << faces[i] << std::endl;
@@ -142,20 +160,24 @@ void Texture::LoadCubemap(const std::string& folderPath)
 	std::vector<std::string> faces{};
 	faces.push_back(folderPath + "/right.jpg");
 	faces.push_back(folderPath + "/left.jpg");
-	faces.push_back(folderPath + "/bottom.jpg"); // 此处bottom和top和教程里是反的，不知道为什么
 	faces.push_back(folderPath + "/top.jpg");
+	faces.push_back(folderPath + "/bottom.jpg");
 	faces.push_back(folderPath + "/back.jpg");
 	faces.push_back(folderPath + "/front.jpg");
 
 	glGenTextures(1, &_id);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, _id);
 
+	stbi_set_flip_vertically_on_load(0); // 天空盒不需要翻转
+
 	int width, height, nrChannels;
+
 	for (unsigned int i = 0; i < faces.size(); i++) {
-		stbi_set_flip_vertically_on_load(1);
 		unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
 		if (data) {
 			std::cout << "Cubemap texture succeed to load at path: " << faces[i] << std::endl;
+			
+
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}

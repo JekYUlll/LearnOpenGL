@@ -11,7 +11,7 @@ public:
     Transform()
         : position(0.0f), rotation(0.0f), scale(1.0f) {}
 
-    void Update(float deltaTime) override {
-        // ¸üÐÂÂß¼­
-    }
+    void Update(float deltaTime) override;
+
+
 };

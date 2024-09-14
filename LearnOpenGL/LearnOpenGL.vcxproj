@@ -260,6 +260,7 @@
     <ClInclude Include="OpenGL\src\RenderBuffer.h" />
     <ClInclude Include="OpenGL\src\Renderer.h" />
     <ClInclude Include="OpenGL\src\RenderScreenQuad.h" />
+    <ClInclude Include="OpenGL\src\Serialize.h" />
     <ClInclude Include="OpenGL\src\Shader.h" />
     <ClInclude Include="OpenGL\src\SkyBox.h" />
     <ClInclude Include="OpenGL\src\Texture.h" />
@@ -749,6 +750,7 @@
     <ClCompile Include="OpenGL\src\Octree.cpp" />
     <ClCompile Include="OpenGL\src\RenderBuffer.cpp" />
     <ClCompile Include="OpenGL\src\Renderer.cpp" />
+    <ClCompile Include="OpenGL\src\Serialize.cpp" />
     <ClCompile Include="OpenGL\src\Shader.cpp" />
     <ClCompile Include="OpenGL\src\SkyBox.cpp" />
     <ClCompile Include="OpenGL\src\Texture.cpp" />
